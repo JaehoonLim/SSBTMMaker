@@ -12,12 +12,12 @@ void SSBTMMaker::Start() {
 
     // Make files
     ofstream HeaderFile;
-    HeaderFile.open ("SSBTreeManager.h");
-    CPPFile.open ("SSBTreeManager.cc");
+    HeaderFile.open ("./Output/SSBTreeManager.h");
+    CPPFile.open ("./Output/SSBTreeManager.cc");
 
     // Read Base files
-    ifstream HeaderBaseFile ("HEADER_BASE.h");
-    ifstream CPPBaseFile ("CPP_BASE.cc");
+    ifstream HeaderBaseFile ("./Config/HEADER_BASE.h");
+    ifstream CPPBaseFile ("./Config/CPP_BASE.cc");
 
     // Base to Output files
     st Base_Line;
