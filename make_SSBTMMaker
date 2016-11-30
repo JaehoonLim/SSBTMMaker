@@ -1,0 +1,5 @@
+rm -rf Output
+mkdir Output
+g++ main_SSBTMMaker.cpp SSBTMMaker.cpp TextReader.cpp -o ./Output/SSBTMMaker
+cd Output
+./SSBTMMaker ./../Config/variables.config ./../Config/genvariables.config

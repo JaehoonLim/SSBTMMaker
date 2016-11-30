@@ -1,0 +1,3 @@
+[submodule "TextReader"]
+	path = TextReader
+	url = git@github.com:JaehoonLim/TextReader.git
