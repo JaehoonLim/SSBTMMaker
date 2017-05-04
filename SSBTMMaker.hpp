@@ -41,4 +41,36 @@ private:
 
 };
 
+/////////////////////////////////
+// SSB Histogram Manager Maker //
+/////////////////////////////////
+
+class SSBHMMaker {
+
+public:
+
+    SSBHMMaker();
+    ~SSBHMMaker();
+
+    void Start();
+    void End();
+    void GetInput(map_ss, map_sd);
+    void MakeConstructor();
+    void MakeDestructor();
+    void MakeBook();
+    void MakeInitialize();
+
+private:
+
+    ofstream HeaderFile;
+    ofstream CPPFile;
+
+    map_sd 	Variable_List;
+    map_sd_it 	Variable_List_it;
+    map_ss 	Name_List;
+    map_ss_it 	Name_List_it;
+    vec_s_it 	Name_it;
+
+};
+
 #endif // __SSBTMMaker_hpp_Inclueded__

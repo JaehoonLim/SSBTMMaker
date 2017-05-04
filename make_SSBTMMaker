@@ -2,4 +2,4 @@ rm -rf Output
 rm -f SSBTMMaker
 mkdir Output
 g++ main_SSBTMMaker.cpp SSBTMMaker.cpp ./TextReader/TextReader.cpp -o SSBTMMaker
-./SSBTMMaker ./Config/variables.config ./Config/genvariables.config
+./SSBTMMaker ./Config/variables.config ./Config/genvariables.config ./Config/hist.config

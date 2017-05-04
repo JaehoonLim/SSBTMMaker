@@ -1,4 +1,4 @@
-// SSBTMMaker v2.11
+// SSBTMMaker v3.00
 
 #include "SSBTMMaker.hpp"
 #include <stdlib.h> /* exit, EXIT_FAILURE */
@@ -8,16 +8,19 @@ int main(int argc, char* argv[]) {
     TextReader VariableListText;
     TextReader GenVariableListText;
     SSBTMMaker TreeManager;
+    TextReader HistListText;
+    SSBHMMaker HistManager;
 
-    if (argc == 3){
-        VariableListText.ReadFile(st(argv[1]));
-        GenVariableListText.ReadFile(st(argv[2]));
+    if (argc == 4){
+        if(!VariableListText.ReadFile(st(argv[1]))){ cout << "Check OriginalTreeVariableFile" << endl; exit(EXIT_FAILURE);}
+        if(!GenVariableListText.ReadFile(st(argv[2]))){ cout << "Check GenTreeVariableFile" << endl; exit(EXIT_FAILURE);}
+        if(!HistListText.ReadFile(st(argv[3]))){ cout << "Check HistogramListFile" << endl; exit(EXIT_FAILURE);}
     }
-    else if(VariableListText.ReadFile("variables.config") && GenVariableListText.ReadFile("genvariables.config")){
-        cout << "Reading default config files : variables.config / genvariables.config" << endl << endl;
+    else if(VariableListText.ReadFile("variables.config") && GenVariableListText.ReadFile("genvariables.config") && HistListText.ReadFile("hist.config")){
+        cout << "Reading default config files : variables.config / genvariables.config / hist.config" << endl << endl;
     }
     else{
-        cout << "Check argument. (./SSBTMMaker OriginalTreeVariableFile GenTreeVariableFile)" << endl << endl;
+        cout << "Check argument. (./SSBTMMaker OriginalTreeVariableFile GenTreeVariableFile HistogramListFile)" << endl << endl;
         exit(EXIT_FAILURE);
     }
 
@@ -43,6 +46,21 @@ int main(int argc, char* argv[]) {
     TreeManager.MakeBook("Gen");
     TreeManager.MakeInitialize("Gen");
     TreeManager.End();
+
+    HistListText.ReadVariables();
+    HistListText.PrintoutVariables();
+    map_ss HistName;
+    map_sd HistValue;
+    HistName  = HistListText.ReturnMap(HistName);
+    HistValue = HistListText.ReturnMap(HistValue);
+
+    HistManager.Start();
+    HistManager.GetInput(HistName, HistValue);
+    //HistManager.MakeConstructor();
+    //HistManager.MakeDestructor();
+    //HistManager.MakeBook();
+    HistManager.MakeInitialize();
+    HistManager.End();
 
     exit(0);
 }
