@@ -16,8 +16,8 @@ void SSBTMMaker::Start() {
     CPPFile.open ("./Output/SSBTreeManager.cc");
 
     // Read Base files
-    ifstream HeaderBaseFile ("./Config/HEADER_BASE.h");
-    ifstream CPPBaseFile ("./Config/CPP_BASE.cc");
+    ifstream HeaderBaseFile ("./Config/SSBTreeManager.h");
+    ifstream CPPBaseFile ("./Config/SSBTreeManager.cc");
 
     // Base to Output files
     st Base_Line;
@@ -217,4 +217,106 @@ void SSBTMMaker::MakeInitialize(std::string FuncName) {
 	}
     }
     CPPFile << '\n' << "}" << '\n' << '\n';
+}
+
+/////////////////////////////////
+// SSB Histogram Manager Maker //
+/////////////////////////////////
+
+SSBHMMaker::SSBHMMaker() {
+}
+
+SSBHMMaker::~SSBHMMaker() {
+}
+
+void SSBHMMaker::Start() {
+
+    // Make files
+    ofstream HeaderFile;
+    HeaderFile.open ("./Output/SSBHistManager.h");
+    CPPFile.open ("./Output/SSBHistManager.cc");
+
+    // Read Base files
+    ifstream HeaderBaseFile ("./Config/SSBHistManager.h");
+    ifstream CPPBaseFile ("./Config/SSBHistManager.cc");
+
+    // Base to Output files
+    st Base_Line;
+    while (getline(HeaderBaseFile,Base_Line)){
+	HeaderFile << Base_Line << '\n';
+    }
+    while (getline(CPPBaseFile,Base_Line)){
+	CPPFile << Base_Line << '\n';
+    }
+
+    // Close files
+    HeaderFile.close();
+    HeaderBaseFile.close();
+    CPPBaseFile.close();
+
+}
+
+void SSBHMMaker::End() {
+    CPPFile.close();
+}
+
+void SSBHMMaker::GetInput(map_ss Names, map_sd Variables) {
+    Name_List = Names;
+    Variable_List = Variables;
+}
+
+void SSBHMMaker::MakeConstructor() {
+    CPPFile << "SSBHistManager::SSBHistManager(){" << '\n' << '\n';
+    CPPFile << '\n' << "}" << '\n' << '\n';
+}
+
+void SSBHMMaker::MakeDestructor() {
+    CPPFile << "SSBHistManager::~SSBHistManager(){" << '\n' << '\n';
+    CPPFile << '\n' << "}" << '\n' << '\n';
+}
+
+void SSBHMMaker::MakeBook() {
+    CPPFile << "void SSBHistManager::Book(TTree* tree){" << '\n' << '\n';
+    CPPFile << "    ssbhist = tree;" << '\n';
+    CPPFile << '\n' << "}" << '\n' << '\n';
+}
+
+
+void SSBHMMaker::MakeInitialize() {
+    CPPFile << "void SSBHistManager::InitializeHist(){" << '\n' << '\n';
+    CPPFile << "    for(unsigned int i_hist=0;i_hist<AllCutName.size();++i_hist){" << '\n';
+    for (Name_List_it = Name_List.begin(); Name_List_it != Name_List.end(); ++Name_List_it){
+        if(Name_List_it->first == "2D"){
+            vec_s Name_vec   = Name_List_it->second;
+            vec_d XBins_vec  = Variable_List[(Name_List_it->first)+"_XBins"];
+            vec_d XStart_vec = Variable_List[(Name_List_it->first)+"_XStart"];
+            vec_d XEnd_vec   = Variable_List[(Name_List_it->first)+"_XEnd"];
+            vec_d YBins_vec  = Variable_List[(Name_List_it->first)+"_YBins"];
+            vec_d YStart_vec = Variable_List[(Name_List_it->first)+"_YStart"];
+            vec_d YEnd_vec   = Variable_List[(Name_List_it->first)+"_YEnd"];
+            for (unsigned int Name_i=0,Bins_i=0;Name_i<Name_vec.size();++Name_i,++Bins_i){
+                if(Bins_i == XBins_vec.size()) Bins_i = 0;
+                CPPFile << "        HistBox2[\"" << Name_vec[Name_i] << "_\"+AllCutName[i_hist]] = ";
+                CPPFile << "ssbhist.make<TH2D>(Form(\"" << Name_vec[Name_i] << "_%s\",AllCutName[i_hist].c_str()),Form(\"";
+                CPPFile << Name_vec[Name_i] << "_%s\",AllCutName[i_hist].c_str())";
+                CPPFile << "," << XBins_vec[Bins_i] << "," << XStart_vec[Bins_i] << "," << XEnd_vec[Bins_i];
+                CPPFile << "," << YBins_vec[Bins_i] << "," << YStart_vec[Bins_i] << "," << YEnd_vec[Bins_i] << ");" << '\n';
+                CPPFile << "        HistBox2[\"" << Name_vec[Name_i] << "_\"+AllCutName[i_hist]]->Sumw2();" << '\n';
+            }
+        } else {
+            vec_s Name_vec  = Name_List_it->second;
+            vec_d Bins_vec  = Variable_List[(Name_List_it->first)+"_Bins"];
+            vec_d Start_vec = Variable_List[(Name_List_it->first)+"_Start"];
+            vec_d End_vec   = Variable_List[(Name_List_it->first)+"_End"];
+            for (unsigned int Name_i=0,Bins_i=0;Name_i<Name_vec.size();++Name_i,++Bins_i){
+                if(Bins_i == Bins_vec.size()) Bins_i = 0;
+                CPPFile << "        HistBox[\"" << Name_vec[Name_i] << "_\"+AllCutName[i_hist]] = ";
+                CPPFile << "ssbhist.make<TH1D>(Form(\"" << Name_vec[Name_i] << "_%s\",AllCutName[i_hist].c_str()),Form(\"";
+                CPPFile << Name_vec[Name_i] << "_%s\",AllCutName[i_hist].c_str())";
+                CPPFile << "," << Bins_vec[Bins_i] << "," << Start_vec[Bins_i] << "," << End_vec[Bins_i] << ");" << '\n';
+                CPPFile << "        HistBox[\"" << Name_vec[Name_i] << "_\"+AllCutName[i_hist]]->Sumw2();" << '\n';
+            }
+        }
+    }
+    CPPFile << '\n' << "    }" << '\n' << "}" << '\n' << '\n';
 }
