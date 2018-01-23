@@ -24,13 +24,13 @@ void SSBHistManager::Fill(std::string VariableName, bool VariableBool, double We
             if(AllCut[AllCutName[i_hist]]){
                 if(Weight == -1.0){
                     ( HistBox[HistName] )->Fill(VariableBool, AllWeight[AllCutName[i_hist]]);
-                else {
+                } else {
                     ( HistBox[HistName] )->Fill(VariableBool, Weight);
                 }
             }
         }
         else {
-            std::cout << "Fill_Bool Error : " << HistName << std::endl;
+            std::cout << "Hist_Bool Error : " << HistName << std::endl;
         }
     }
 }
@@ -43,13 +43,13 @@ void SSBHistManager::Fill(std::string VariableName, int VariableInt, double Weig
             if(AllCut[AllCutName[i_hist]]){
                 if(Weight == -1.0){
                     ( HistBox[HistName] )->Fill(VariableInt, AllWeight[AllCutName[i_hist]]);
-                else {
+                } else {
                     ( HistBox[HistName] )->Fill(VariableInt, Weight);
                 }
             }
         }
         else {
-            std::cout << "Fill_Int Error : " << HistName << std::endl;
+            std::cout << "Hist_Int Error : " << HistName << std::endl;
         }
     }
 }
@@ -62,13 +62,13 @@ void SSBHistManager::Fill(std::string VariableName, unsigned int VariableUInt, d
             if(AllCut[AllCutName[i_hist]]){
                 if(Weight == -1.0){
                     ( HistBox[HistName] )->Fill(VariableUInt, AllWeight[AllCutName[i_hist]]);
-                else {
+                } else {
                     ( HistBox[HistName] )->Fill(VariableUInt, Weight);
                 }
             }
         }
         else {
-            std::cout << "Fill_UInt Error : " << HistName << std::endl;
+            std::cout << "Hist_UInt Error : " << HistName << std::endl;
         }
     }
 }
@@ -81,13 +81,13 @@ void SSBHistManager::Fill(std::string VariableName, float VariableFloat, double 
             if(AllCut[AllCutName[i_hist]]){
                 if(Weight == -1.0){
                     ( HistBox[HistName] )->Fill(VariableFloat, AllWeight[AllCutName[i_hist]]);
-                else {
+                } else {
                     ( HistBox[HistName] )->Fill(VariableFloat, Weight);
                 }
             }
         }
         else {
-            std::cout << "Fill_Float Error : " << HistName << std::endl;
+            std::cout << "Hist_Float Error : " << HistName << std::endl;
         }
     }
 }
@@ -100,13 +100,13 @@ void SSBHistManager::Fill(std::string VariableName, double VariableDouble, doubl
             if(AllCut[AllCutName[i_hist]]){
                 if(Weight == -1.0){
                     ( HistBox[HistName] )->Fill(VariableDouble, AllWeight[AllCutName[i_hist]]);
-                else {
+                } else {
                     ( HistBox[HistName] )->Fill(VariableDouble, Weight);
                 }
             }
         }
         else {
-            std::cout << "Fill_Double Error : " << HistName << std::endl;
+            std::cout << "Hist_Double Error : " << HistName << std::endl;
         }
     }
 }
@@ -119,13 +119,13 @@ void SSBHistManager::Fill2D(std::string VariableName, int VariableIntX, int Vari
             if(AllCut[AllCutName[i_hist]]){
                 if(Weight == -1.0){
                     ( HistBox2[HistName] )->Fill(VariableIntX, VariableIntY, AllWeight[AllCutName[i_hist]]);
-                else {
+                } else {
                     ( HistBox2[HistName] )->Fill(VariableIntX, VariableIntY, Weight);
                 }
             }
         }
         else {
-            std::cout << "Fill_2D_Int Error : " << HistName << std::endl;
+            std::cout << "Hist_2D_Int Error : " << HistName << std::endl;
         }
     }
 }
@@ -138,18 +138,18 @@ void SSBHistManager::Fill2D(std::string VariableName, unsigned int VariableUIntX
             if(AllCut[AllCutName[i_hist]]){
                 if(Weight == -1.0){
                     ( HistBox2[HistName] )->Fill(VariableUIntX, VariableUIntY, AllWeight[AllCutName[i_hist]]);
-                else {
+                } else {
                     ( HistBox2[HistName] )->Fill(VariableUIntX, VariableUIntY, Weight);
                 }
             }
         }
         else {
-            std::cout << "Fill_2D_UInt Error : " << HistName << std::endl;
+            std::cout << "Hist_2D_UInt Error : " << HistName << std::endl;
         }
     }
 }
 
-void SSBHistManager::Fill2D(std::string VariableName, float VariableFloatX, int VariableFloatY, double Weight ){
+void SSBHistManager::Fill2D(std::string VariableName, float VariableFloatX, float VariableFloatY, double Weight ){
     if(DataCheck) Weight = 1.0;
     for(unsigned int i_hist=0;i_hist<AllCutName.size();++i_hist){
         HistName = VariableName+"_"+AllCutName[i_hist];
@@ -157,13 +157,13 @@ void SSBHistManager::Fill2D(std::string VariableName, float VariableFloatX, int 
             if(AllCut[AllCutName[i_hist]]){
                 if(Weight == -1.0){
                     ( HistBox2[HistName] )->Fill(VariableFloatX, VariableFloatY, AllWeight[AllCutName[i_hist]]);
-                else {
+                } else {
                     ( HistBox2[HistName] )->Fill(VariableFloatX, VariableFloatY, Weight);
                 }
             }
         }
         else {
-            std::cout << "Fill_2D_Float Error : " << HistName << std::endl;
+            std::cout << "Hist_2D_Float Error : " << HistName << std::endl;
         }
     }
 }
@@ -176,13 +176,13 @@ void SSBHistManager::Fill2D(std::string VariableName, double VariableDoubleX, do
             if(AllCut[AllCutName[i_hist]]){
                 if(Weight == -1.0){
                     ( HistBox2[HistName] )->Fill(VariableDoubleX, VariableDoubleY, AllWeight[AllCutName[i_hist]]);
-                else {
+                } else {
                     ( HistBox2[HistName] )->Fill(VariableDoubleX, VariableDoubleY, Weight);
                 }
             }
         }
         else {
-            std::cout << "Fill_2D_Double Error : " << HistName << std::endl;
+            std::cout << "Hist_2D_Double Error : " << HistName << std::endl;
         }
     }
 }

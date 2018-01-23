@@ -1,4 +1,4 @@
-// SSBTMMaker v3.000
+// SSBTMMaker v3.00
 
 #ifndef SSBHistManager_h
 #define SSBHistManager_h 
@@ -49,7 +49,7 @@ public:
     void Fill2D(std::string, double, double, double Weight=-1.0);
 
     void GetCutStep(std::string, std::map<std::string,bool>);
-    void SetWeight(std::string, std::string, double)
+    void SetWeight(std::string, std::string, double);
     void CheckData(bool);
 
 private:
